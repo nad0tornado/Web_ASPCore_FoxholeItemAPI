@@ -11,15 +11,15 @@ namespace FoxholeItemAPI.Utils
         public static Category ToCategory(this string? value) =>
             value switch
             {
-                "small_arms" => Category.SmallArms,
-                "heavy_arms" => Category.HeavyArms,
-                "heavy_ammunition" => Category.HeavyAmmunition,
+                "small_arms" or "smallArms" => Category.SmallArms,
+                "heavy_arms" or "heavyArms" => Category.HeavyArms,
+                "heavy_ammunition" or "heavyAmmunition" => Category.HeavyAmmunition,
                 "utilities" => Category.Utilities,
                 "supplies" => Category.Supplies,
                 "medical" => Category.Medical,
                 "uniforms" => Category.Uniforms,
                 "vehicles" => Category.Vehicles,
-                "shipables" => Category.Shippables,
+                "shipables" or "shippables" => Category.Shippables,
                 _ => Category.Unknown
             };
 
