@@ -17,5 +17,14 @@ namespace FoxholeItemAPI.Models
         public Category Category { get; set; }
 
         public ShippingType ShippingType { get; set; }
+
+        public Item() { }
+        public Item(string iconName, string displayName, Category category, ShippingType shippingType)
+        {
+            IconName = iconName;
+            DisplayName = displayName;
+            Category = category;
+            ShippingType = shippingType;
+        }
     }
 }

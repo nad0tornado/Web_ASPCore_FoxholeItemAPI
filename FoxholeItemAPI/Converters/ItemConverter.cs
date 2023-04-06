@@ -27,19 +27,16 @@ namespace FoxholeItemAPI.Converters
             if (!jsonDict.ContainsKey("itemCategory"))
                 throw new NullReferenceException("\"itemCategory\" is required");
 
-            // Extract the name and age properties from the dictionary
             string iconName = jsonDict["imgName"].GetString() ?? string.Empty;
             string displayName = jsonDict["itemName"].GetString() ?? string.Empty;
             string? categoryStr = jsonDict["itemCategory"].GetString();
             Category category = categoryStr.ToCategory();
 
-            // Create a new Person object and return it
-            return new Item { IconName = iconName, DisplayName = displayName, Category = category, ShippingType = category.ToShippingType() };
+            return new Item (iconName, displayName, category, category.ToShippingType());
         }
 
         public override void Write(Utf8JsonWriter writer, Item value, JsonSerializerOptions options)
         {
-            // Write the Person object as a JSON object with name and age properties
             writer.WriteStartObject();
             writer.WriteString("imgName", value.IconName);
             writer.WriteString("itemName", value.DisplayName);
