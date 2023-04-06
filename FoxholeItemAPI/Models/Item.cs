@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FoxholeItemAPI.Models
 {
-    public class Item : IItem
+    public record Item : IItem
     {
         public string IconName { get; set; } = string.Empty;
 
