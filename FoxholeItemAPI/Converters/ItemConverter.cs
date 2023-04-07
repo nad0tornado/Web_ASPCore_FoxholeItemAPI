@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using FoxholeItemAPI.Models;
 using FoxholeItemAPI.Utils;
@@ -14,7 +9,6 @@ namespace FoxholeItemAPI.Converters
     {
         public override Item Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            // Read the JSON object into a dictionary
             var jsonDict = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(ref reader, options);
 
             if (jsonDict == null)
@@ -29,10 +23,16 @@ namespace FoxholeItemAPI.Converters
 
             string iconName = jsonDict["imgName"].GetString() ?? string.Empty;
             string displayName = jsonDict["itemName"].GetString() ?? string.Empty;
-            string? categoryStr = jsonDict["itemCategory"].GetString();
+            string categoryStr = jsonDict["itemCategory"].GetString() ?? string.Empty;
             Category category = categoryStr.ToCategory();
 
-            return new Item (iconName, displayName, category, category.ToShippingType());
+            var hasSubCategory = jsonDict.ContainsKey("itemSubCategory");
+            if (!hasSubCategory)
+                return new Item(iconName, displayName, category, category.ToShippingType());
+
+            string? subCategoryStr = jsonDict["itemSubCategory"].GetString();
+            var subCategory = subCategoryStr?.ToCategory() ?? Category.Unknown;
+            return new Item(iconName, displayName, category, subCategory.ToShippingType(), subCategory);
         }
 
         public override void Write(Utf8JsonWriter writer, Item value, JsonSerializerOptions options)
@@ -41,6 +41,7 @@ namespace FoxholeItemAPI.Converters
             writer.WriteString("imgName", value.IconName);
             writer.WriteString("itemName", value.DisplayName);
             writer.WriteString("itemCategory", value.Category.ToString());
+            writer.WriteString("itemSubCategory", value.SubCategory.ToString());
             writer.WriteEndObject();
         }
     }

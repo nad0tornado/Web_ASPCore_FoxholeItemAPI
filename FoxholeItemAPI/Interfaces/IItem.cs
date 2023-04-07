@@ -1,4 +1,5 @@
 ﻿using FoxholeItemAPI.Utils;
+using System.Text.Json.Serialization;
 
 namespace FoxholeItemAPI.Interfaces
 {
@@ -9,6 +10,8 @@ namespace FoxholeItemAPI.Interfaces
         public string DisplayName { get; }
 
         public Category Category { get; }
+
+        public Category SubCategory { get; set; }
 
         public ShippingType ShippingType { get; }
     }

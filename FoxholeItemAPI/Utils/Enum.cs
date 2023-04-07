@@ -8,10 +8,10 @@ namespace FoxholeItemAPI.Utils
 {
     public enum Category
     {
-        SmallArms, HeavyArms, HeavyAmmunition, Utilities, Supplies, Medical, Uniforms, Vehicles, Shippables, Unknown
+        SmallArms, HeavyArms, HeavyAmmunition, Utilities, Supplies, Medical, Uniforms, Vehicles, Shippables, Resources, Liquids, LargeItems, Unknown = -1
     };
 
     public enum Faction { Warden, Colonial, Neutral }
 
-    public enum ShippingType { ShippingContainer, Pallet, CrateOrPackage, Unknown };
+    public enum ShippingType { ShippingContainer, ResourceContainer, LiquidContainer, Pallet, CrateOrPackage, Crate, PackagedItem, None, Unknown = -1 };
 }
