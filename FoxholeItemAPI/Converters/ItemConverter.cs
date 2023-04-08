@@ -26,12 +26,13 @@ namespace FoxholeItemAPI.Converters
             string categoryStr = jsonDict["itemCategory"].GetString() ?? string.Empty;
             Category category = categoryStr.ToCategory();
 
-            var hasSubCategory = jsonDict.ContainsKey("itemSubCategory");
+            bool hasSubCategory = jsonDict.ContainsKey("itemSubCategory");
             if (!hasSubCategory)
                 return new Item(iconName, displayName, category, category.ToShippingType());
 
             string? subCategoryStr = jsonDict["itemSubCategory"].GetString();
-            var subCategory = subCategoryStr?.ToCategory() ?? Category.Unknown;
+            Category subCategory = subCategoryStr?.ToCategory() ?? Category.Unknown;
+
             return new Item(iconName, displayName, category, subCategory.ToShippingType(), subCategory);
         }
 
