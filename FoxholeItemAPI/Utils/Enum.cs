@@ -13,5 +13,5 @@ namespace FoxholeItemAPI.Utils
 
     public enum Faction { Warden, Colonial, Neutral }
 
-    public enum ShippingType { ShippingContainer, ResourceContainer, LiquidContainer, Pallet, Crate, PackagedItem, CrateOrPackage, Unknown = -1 };
+    public enum ShippingType { ShippingContainer, ResourceContainer, LiquidContainer, Pallet, Crate, PackagedItem, CrateOrPackage};
 }
