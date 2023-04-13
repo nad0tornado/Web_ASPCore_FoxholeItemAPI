@@ -14,5 +14,7 @@ namespace FoxholeItemAPI.Interfaces
         public Category SubCategory { get; set; }
 
         public ShippingType ShippingType { get; }
+
+        public Faction Faction { get; }
     }
 }

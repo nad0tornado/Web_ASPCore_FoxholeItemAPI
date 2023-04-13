@@ -23,17 +23,29 @@ namespace FoxholeItemAPI.Converters
 
             string iconName = jsonDict["imgName"].GetString() ?? string.Empty;
             string displayName = jsonDict["itemName"].GetString() ?? string.Empty;
+
+            var factions = jsonDict.ContainsKey("faction") ? jsonDict["faction"].EnumerateArray().Select(e => e.GetString()) : new string[0];
+            Faction faction = Faction.Neutral;
+
+            if (factions.Contains("warden") && !factions.Contains("colonial"))
+                faction = Faction.Warden;
+            else if (factions.Contains("colonial") && !factions.Contains("warden"))
+                faction = Faction.Colonial;
+            else
+                faction = Faction.Neutral;
+
+
             string categoryStr = jsonDict["itemCategory"].GetString() ?? string.Empty;
             Category category = categoryStr.ToCategory();
 
             bool hasSubCategory = jsonDict.ContainsKey("itemSubCategory");
             if (!hasSubCategory)
-                return new Item(iconName, displayName, category, category.ToShippingType());
+                return new Item(iconName, displayName, category, category.ToShippingType(), faction);
 
             string? subCategoryStr = jsonDict["itemSubCategory"].GetString();
             Category subCategory = subCategoryStr?.ToCategory() ?? Category.Unknown;
 
-            return new Item(iconName, displayName, category, subCategory.ToShippingType(), subCategory);
+            return new Item(iconName, displayName, category, subCategory.ToShippingType(), faction, subCategory);
         }
 
         public override void Write(Utf8JsonWriter writer, Item value, JsonSerializerOptions options)
