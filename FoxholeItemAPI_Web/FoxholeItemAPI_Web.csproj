@@ -15,4 +15,6 @@
     <ProjectReference Include="..\FoxholeItemAPI\FoxholeItemAPI.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties foxhole_1json__JsonSchema="https://download.stackhawk.com/hawk/jsonschema/hawkconfig.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

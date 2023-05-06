@@ -2,9 +2,9 @@
 
 namespace FoxholeItemAPI.Interfaces
 {
-    public interface IFoxholeItemAPIService
+    public interface IFoxholeItemAPIService<Item> where Item : IItem
     {
-        public static List<IItem> GetItems() {  throw new NotImplementedException(); }
-        public static List<IItem> GetItemsInCategory(Category category) { throw new NotImplementedException(); }
+        public Task<List<Item>> GetItems();
+        public Task<List<Item>> GetItemsInCategory(Category category);
     }
 }
