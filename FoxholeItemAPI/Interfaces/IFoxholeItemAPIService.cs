@@ -4,7 +4,7 @@ namespace FoxholeItemAPI.Interfaces
 {
     public interface IFoxholeItemAPIService<Item> where Item : IItem
     {
-        public Task<List<Item>> GetItems();
-        public Task<List<Item>> GetItemsInCategory(Category category);
+        public Task<IEnumerable<Item>> GetItems();
+        public Task<IEnumerable<Item>> GetItemsInCategory(Category category);
     }
 }
