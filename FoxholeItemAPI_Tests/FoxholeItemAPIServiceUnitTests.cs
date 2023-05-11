@@ -1,5 +1,4 @@
 using FoxholeItemAPI_Tests.Interfaces;
-using FoxholeItemAPI.Services;
 using FoxholeItemAPI.Repositories;
 using FoxholeItemAPI.Utils;
 
