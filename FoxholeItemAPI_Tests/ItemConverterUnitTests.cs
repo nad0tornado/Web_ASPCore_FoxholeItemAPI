@@ -29,13 +29,16 @@ namespace FoxholeItemAPI_Tests
             });
         }
 
-        [Fact]
-        public void Read_ReturnsItem()
+        [Theory]
+        [InlineData("test","testImg", "small_arms", Category.SmallArms)]
+        [InlineData("testShippable", "testShippableImg", "shippable", Category.Shippables)]
+        [InlineData("testUnknown", "testUnknownImg", "ukn", Category.Unknown)]
+        public void Read_ReturnsItem(string expectedName, string expectedIconName, string category, Category expectedCategory)
         {
             string json = "{ " +
-                "\"itemName\": \"test\"," +
-                "\"imgName\": \"testImg\"," +
-                "\"itemCategory\": \"small_arms\"" +
+                "\"itemName\": \""+expectedName + "\"," +
+                "\"imgName\": \""+expectedIconName+"\"," +
+                "\"itemCategory\": \""+category+"\"" +
             "}";
 
             var options = new JsonSerializerOptions();
@@ -44,9 +47,9 @@ namespace FoxholeItemAPI_Tests
             Item? item = JsonSerializer.Deserialize<Item>(json, options);
 
             Assert.NotNull(item);
-            Assert.Equal("test", item?.DisplayName);
-            Assert.Equal("testImg", item?.IconName);
-            Assert.Equal(Category.SmallArms, item?.Category);
+            Assert.Equal(expectedName, item?.DisplayName);
+            Assert.Equal(expectedIconName, item?.IconName);
+            Assert.Equal(expectedCategory, item?.Category);
         }
     }
 }

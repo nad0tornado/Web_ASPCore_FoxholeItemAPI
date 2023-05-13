@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,21 @@ namespace FoxholeItemAPI.Utils
             Category category;
 
             if (!Enum.TryParse(valueFirstUpper, out category))
-                return Category.Unknown;
+            {
+                var categoryValues = EnumTypesToString<Category>().Values;
+                var firstSimilar = categoryValues.FirstOrDefault(v =>
+                {
+                    int similarityScore = FuzzySharp.Fuzz.Ratio(v, value);
+                    bool isSimilar = similarityScore > 60;
+
+                    return isSimilar;
+                });
+
+                if (firstSimilar != null && Enum.TryParse(firstSimilar, out category))
+                    return category;
+                else
+                    return Category.Unknown;
+            }
             else
                 return category;
         }
